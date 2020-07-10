@@ -1,5 +1,7 @@
 # Dynamic Imports Example Plugin
 
+**Attention: Dynamic plugins are a work-in-progress feature. Please do try it out and give feedback, but use only at your own risk!**
+
 This project is meant to be used as a template to create your own Chart Plugins for Superset.
 
 ## Initializing Your Own Plugin
