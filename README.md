@@ -17,11 +17,13 @@ npm install
 npm run build-dev
 ```
 
-To serve the built assets so that you can test it out on a locally-running Superset:
+Superset will need to load your built plugin bundle from somewhere. You can temporarily serve the plugin locally using the following command:
 
 ```shell
 npm run serve-dev
 ```
+
+Use the "Custom Plugins" menu in Superset to make Superset aware of your plugin.
 
 To build for production:
 

@@ -1,4 +1,4 @@
-import { ChartProps } from "@superset-ui/chart";
+import { ChartProps } from '@superset-ui/chart';
 
 export interface DatasourceMetric {
   label: string;
@@ -12,15 +12,18 @@ export type FormData = {
 
 export type HelloWorldChartProps = ChartProps & {
   formData: FormData;
+  queryData: any;
 };
 
 export default function transformProps(chartProps: HelloWorldChartProps) {
-  const { width, height } = chartProps;
+  const { width, height, queryData } = chartProps;
 
-  console.log("chart props:", chartProps);
+  // transformations happen here...
+  // TODO demo some transformation
 
   return {
     width,
     height,
+    queryData,
   };
 }

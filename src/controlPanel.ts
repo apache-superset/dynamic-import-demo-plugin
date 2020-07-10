@@ -1,7 +1,17 @@
 import { t } from '@superset-ui/translation';
+import { expandControlConfig } from '@superset-ui/chart-controls';
 
 export default {
   controlPanelSections: [
+    {
+      label: t('Query'),
+      expanded: true,
+      tabOverride: 'data',
+      controlSetRows: [
+        [{ ...expandControlConfig('groupby'), renderTrigger: true }],
+        [{ ...expandControlConfig('metric'), renderTrigger: true }],
+      ],
+    },
     {
       label: t('Options'),
       expanded: true,

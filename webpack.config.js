@@ -1,7 +1,8 @@
+const webpack = require('webpack');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const parsedArgs = require('yargs').argv;
-// const getProxyConfig = require("./webpack.proxy-config");
+const packageJson = require('./package.json');
 
 // input dir
 const SRC_DIR = path.resolve(__dirname, './src');
@@ -10,6 +11,7 @@ const BUILD_DIR = path.resolve(__dirname, './dist');
 
 const { mode = 'development', devserverPort = 9000 } = parsedArgs;
 const isDevMode = mode !== 'production';
+const peerDependencies = new Set(Object.keys(packageJson.peerDependencies));
 
 const output = {
   path: BUILD_DIR,
@@ -28,7 +30,7 @@ const config = {
     fs: 'empty',
   },
   entry: {
-    main: 'src/index.ts',
+    main: 'src/entry.ts',
   },
   output: {
     path: BUILD_DIR,
@@ -38,7 +40,6 @@ const config = {
   resolve: {
     alias: {
       src: SRC_DIR,
-      'react-dom': '@hot-loader/react-dom',
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     symlinks: false,
@@ -82,65 +83,42 @@ const config = {
       },
       {
         test: /\.(jpg|gif|png)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-        },
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              // using file-loader would be nice, but there's no good plan
+              // to get superset to load files from the correct domain.
+              // Once we figure that out, this could be set to a reasonable limit.
+              limit: Infinity,
+            },
+          },
+        ],
       },
     ],
   },
   plugins: [
     new CleanWebpackPlugin({
       dry: false,
-      // required because the build directory is outside the frontend directory:
-      dangerouslyAllowCleanPatternsOutsideProject: true,
+    }),
+    new webpack.DefinePlugin({
+      'process.env.PACKAGE_NAME': JSON.stringify(packageJson.name),
     }),
   ],
   externals: [
-    {
-      react: {
-        commonjs: 'react',
-        commonjs2: 'react',
-        amd: 'react',
-        root: 'react',
-      },
-      'react-dom': 'react-dom',
+    // define externals based on the peerDependencies in package.json
+    // if we can figure out how to get a plugin to access externals via a means
+    // other than global variables, let's do that.
+    function externalizePeerDependencies(context, request, callback) {
+      if (peerDependencies.has(request)) {
+        // superset attaches shared modules to the window, prepended with "__superset__/"
+        return callback(null, `__superset__/${request}`);
+      }
+      return callback();
     },
-    /^(@superset-ui\/.+)$/,
   ],
-  devtool: false,
+  // TODO make source maps work
+  devtool: isDevMode ? 'eval-source-map' : false,
 };
-
-// let proxyConfig = getProxyConfig();
-
-// if (isDevMode) {
-//   config.devtool = "eval-cheap-module-source-map";
-//   config.devServer = {
-//     before(app, server, compiler) {
-//       // load proxy config when manifest updates
-//       const hook = compiler.hooks.webpackManifestPluginAfterEmit;
-//       hook.tap("ManifestPlugin", (manifest) => {
-//         proxyConfig = getProxyConfig(manifest);
-//       });
-//     },
-//     historyApiFallback: true,
-//     hot: true,
-//     injectClient: false,
-//     injectHot: true,
-//     inline: true,
-//     stats: "minimal",
-//     overlay: true,
-//     port: devserverPort,
-//     // Only serves bundled files from webpack-dev-server
-//     // and proxy everything else to Superset backend
-//     proxy: [
-//       // functions are called for every request
-//       () => {
-//         return proxyConfig;
-//       },
-//     ],
-//     contentBase: path.join(process.cwd(), "../static/assets"),
-//   };
-// }
 
 module.exports = config;

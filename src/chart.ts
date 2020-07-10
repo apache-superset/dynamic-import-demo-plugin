@@ -2,7 +2,9 @@ import { t } from '@superset-ui/translation';
 import { ChartMetadata, ChartPlugin } from '@superset-ui/chart';
 import controlPanel from './controlPanel';
 import transformProps from './transformProps';
+import buildQuery from './buildQuery';
 import thumbnail from './images/thumbnail.png';
+import Chart from './Vis';
 
 const metadata = new ChartMetadata({
   description:
@@ -12,12 +14,11 @@ const metadata = new ChartMetadata({
   useLegacyApi: false,
 });
 
-console.log('this one is from hello world plugin');
-
 export default class HelloWorldChartPlugin extends ChartPlugin {
   constructor() {
     super({
-      loadChart: () => import('./Vis'),
+      buildQuery,
+      Chart,
       metadata,
       transformProps,
       controlPanel,
