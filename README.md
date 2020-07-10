@@ -1,6 +1,4 @@
-# ⚠️⚠️⚠️ THIS IS A WORK IN PROGRESS. USE AT YOUR OWN RISK. ⚠️⚠️⚠️
-
-# Hello World Superset Example Plugin
+# Dynamic Imports Example Plugin
 
 This project is meant to be used as a template to create your own Chart Plugins for Superset.
 
