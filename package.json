@@ -26,11 +26,8 @@
   "devDependencies": {
     "@airbnb/config-eslint": "^3.1.0",
     "@babel/preset-env": "^7.10.3",
-    "@superset-ui/chart": "^0.14.1",
-    "@superset-ui/chart-controls": "^0.14.3",
-    "@superset-ui/query": "^0.14.1",
-    "@superset-ui/style": "^0.14.0",
-    "@superset-ui/translation": "^0.14.0",
+    "@superset-ui/chart-controls": "^0.14.23",
+    "@superset-ui/core": "^0.15.17",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
     "babel-loader": "^8.1.0",
@@ -53,11 +50,8 @@
     "yargs": "^15.3.1"
   },
   "peerDependencies": {
-    "@superset-ui/chart": "^0.14.1",
-    "@superset-ui/chart-controls": "^0.14.3",
-    "@superset-ui/query": "^0.14.1",
-    "@superset-ui/style": "^0.14.0",
-    "@superset-ui/translation": "^0.14.0",
+    "@superset-ui/chart-controls": "^0.14.23",
+    "@superset-ui/core": "^0.15.17",
     "react": "^16.13.1"
   },
   "dependencies": {}
