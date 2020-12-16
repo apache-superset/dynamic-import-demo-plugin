@@ -16,19 +16,21 @@ To build the plugin:
 
 ```shell
 npm install
-npm run build-dev
+npm run build # or npm run build:watch
 ```
 
-Superset will need to load your built plugin bundle from somewhere. You can temporarily serve the plugin locally using the following command:
+Superset will need to load your built plugin bundle from somewhere. You can serve the plugin locally using the following command:
 
 ```shell
 npm run serve-dev
 ```
 
-Use the "Custom Plugins" menu in Superset to make Superset aware of your plugin.
+While serving up the local plugin, you can add it to your locally running Superset instance under "Custom Plugins". Use the the bundle url `http://127.0.0.1:8080/main.js`.
 
 To build for production:
 
 ```shell
 npm run build-prod
 ```
+
+The `serve` command should only be used for local development. In production, it is recommended to host the bundle output of `build` (located in `/dist`) on a CDN. The address of the CDN-hosted bundle is then what should be used when adding the plugin to Superset.
