@@ -8,8 +8,8 @@ export default {
       expanded: true,
       tabOverride: 'data',
       controlSetRows: [
-        [{ ...expandControlConfig('groupby'), renderTrigger: true }],
-        [{ ...expandControlConfig('metric'), renderTrigger: true }],
+        [{ ...expandControlConfig('groupby') }],
+        [{ ...expandControlConfig('metric') }],
       ],
     },
     {
