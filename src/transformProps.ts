@@ -12,11 +12,11 @@ export type FormData = {
 
 export type HelloWorldChartProps = ChartProps & {
   formData: FormData;
-  queryData: any;
+  queriesData: any;
 };
 
 export default function transformProps(chartProps: HelloWorldChartProps) {
-  const { width, height, queryData } = chartProps;
+  const { width, height, queriesData } = chartProps;
 
   // transformations happen here...
   // TODO demo some transformation
@@ -24,6 +24,6 @@ export default function transformProps(chartProps: HelloWorldChartProps) {
   return {
     width,
     height,
-    queryData,
+    queriesData,
   };
 }

@@ -5,7 +5,7 @@ type VisProps = {
   className?: string;
   width: number;
   height: number;
-  queryData: any;
+  queriesData: any;
 };
 
 const Header = styled.h1`
@@ -15,15 +15,15 @@ const Header = styled.h1`
   justify-content: center;
 `;
 
-export default function Vis({ className = '', queryData }: VisProps) {
-  const stringyQueryData = useMemo(() => {
-    return JSON.stringify(queryData, null, 2);
-  }, [queryData]);
+export default function Vis({ className = '', queriesData }: VisProps) {
+  const stringyQueriesData = useMemo(() => {
+    return JSON.stringify(queriesData, null, 2);
+  }, [queriesData]);
 
   return (
     <>
       <Header className={className}>Hello world!</Header>
-      <pre>{stringyQueryData}</pre>
+      <pre>{stringyQueriesData}</pre>
     </>
   );
 }
